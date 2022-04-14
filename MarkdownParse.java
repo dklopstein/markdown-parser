@@ -14,15 +14,28 @@ public class MarkdownParse {
         while(currentIndex < markdown.length()) {
             //System.out.println(currentIndex);
             // fixed empty lines and non-links 
-            if (markdown.indexOf(")", currentIndex) == -1) { 
+            if (markdown.indexOf(")", currentIndex) == -1 ||
+                markdown.indexOf("]", currentIndex) == -1) { 
                 break;
             }
             int openBracket = markdown.indexOf("[", currentIndex);
             int closeBracket = markdown.indexOf("]", openBracket);
             int openParen = markdown.indexOf("(", closeBracket);
             int closeParen = markdown.indexOf(")", openParen);
+            // fixed image being read as a link
+            if (markdown.indexOf("!", currentIndex) == openBracket - 1) {
+                currentIndex = closeParen + 1;
+                continue;
+            }
+            // fixed distance between [] and ()
+            if (closeBracket + 1 != openParen) {
+                currentIndex = closeParen;
+                continue;
+            }
+
             toReturn.add(markdown.substring(openParen + 1, closeParen));
-            currentIndex = closeParen + 1;   
+            currentIndex = closeParen + 1; 
+            
         }
 
         return toReturn;
