@@ -15,7 +15,9 @@ public class MarkdownParse {
             //System.out.println(currentIndex);
             // fixed empty lines and non-links 
             if (markdown.indexOf(")", currentIndex) == -1 ||
-                markdown.indexOf("]", currentIndex) == -1) { 
+                markdown.indexOf("]", currentIndex) == -1 ||
+                markdown.indexOf("(", currentIndex) == -1 ||
+                markdown.indexOf("[", currentIndex) == -1) { 
                 break;
             }
             int openBracket = markdown.indexOf("[", currentIndex);
