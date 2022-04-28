@@ -56,7 +56,7 @@ public class MarkdownParseTest {
     
     @Test
     public void getLinksBreakingTest() throws IOException {
-        List<String> expected = List.of("failure");
+        List<String> expected = List.of();
 
         assertEquals(expected, links("breaking-test.md"));
     }
