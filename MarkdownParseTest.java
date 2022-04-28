@@ -60,4 +60,13 @@ public class MarkdownParseTest {
 
         assertEquals(expected, links("breaking-test.md"));
     }
+
+    @Test
+    public void getLinksTest9() throws IOException {
+        List<String> expected = List.of("https://something.com", "some-thing.html", 
+        "https://quizlet.com/22367675/woodrow-wilson-fourteen-points-and-four-points-flash-cards/", 
+        "https://www.youtube.com/watch?v=D6xkbGLQesk", "https://u.nu/");
+
+        assertEquals(expected, links("test-file9.md"));
+    }
 }
