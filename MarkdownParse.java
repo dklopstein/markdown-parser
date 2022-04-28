@@ -26,8 +26,8 @@ public class MarkdownParse {
             int closeParen = markdown.indexOf(")", openParen);
             // fixed image being read as a link
             // fixed distance between [] and ()
-            if (markdown.indexOf("!", currentIndex) == openBracket - 1 ||
-                closeBracket + 1 != openParen) {
+            if ((markdown.indexOf("!", currentIndex) == openBracket - 1 &&
+                 openBracket != 0) || closeBracket + 1 != openParen) {
                 currentIndex = closeParen;
                 continue;
             }
