@@ -26,12 +26,43 @@ public class MarkdownParse {
             int closeParen = markdown.indexOf(")", openParen);
             // fixed image being read as a link
             // fixed distance between [] and ()
+            //System.out.println(openBracket);
+            //System.out.println(markdown.substring(openParen + 1, closeParen));
             if ((markdown.indexOf("!", currentIndex) == openBracket - 1 &&
-                 openBracket != 0) || closeBracket + 1 != openParen) {
+                 openBracket != 0)) {
                 currentIndex = closeParen;
                 continue;
             }
-           // making a change on remote server 
+
+            // fixing inline backticks
+            // if (markdown.indexOf("`", currentIndex) == openBracket - 1 ||
+            //     markdown.indexOf("`", closeBracket) == closeBracket + 1) {
+            //     for (int i = currentIndex + 1; i < closeBracket; i++) {
+            //         if (markdown.charAt(i) == '`') {
+            //             currentIndex = closeParen;
+            //             break;
+            //         }
+            //     }
+            //     continue;
+            // }
+
+            // fixing nested parenthesis
+            while (markdown.charAt(closeParen + 1) == ')') {
+                closeParen++;
+            }
+            
+            // fix line breaks
+            // String newline = System.getProperty("line.separator");
+
+            // if (markdown.substring(openBracket, closeBracket).contains(newline) ||
+            //     markdown.substring(openParen, closeParen).contains(newline)) {
+            //     currentIndex = closeParen;
+            //     continue;
+            // }
+            
+
+            // making a change on remote server 
+            //System.out.println("adding");
             toReturn.add(markdown.substring(openParen + 1, closeParen));
             currentIndex = closeParen + 1; 
             
@@ -42,7 +73,7 @@ public class MarkdownParse {
 
 
     public static void main(String[] args) throws IOException {
-        System.out.println("Here are the links found in " + args[0] + ":");
+        //System.out.println("Here are the links found in " + args[0] + ":");
         Path fileName = Path.of(args[0]);
         String content = Files.readString(fileName);
         ArrayList<String> links = getLinks(content);
